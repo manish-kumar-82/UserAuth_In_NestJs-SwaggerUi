@@ -1,0 +1,18 @@
+{
+  "ALL_FIELDS": "Please provide all details",
+  "USER_EXIST": "User already exists with this email",
+  "USER_NOT_EXIST": "User does not exist with this email",
+  "USER_REGISTER": "User registered successfully",
+  "USER_LOGIN": "User logged in successfully",
+  "USER_PASSWORD_INCORRECT": "Incorrect password",
+  "USERS_NOT_FOUND": "No Users found",
+  "USER_NOT_FOUND": "User not found",
+  "USER_FETCH": "User found successfully",   
+  "USER_UPDATED": "User details updated successfully",
+  "USER_DELETE": "User deleted successfully",
+  "RESET_LINK": "Reset password link sent successfully",
+  "RESET_PASSWORD": "Password reset successfully",
+  "INVALID_TOKEN": "Invalid token or expire token. Please try again",
+  "INVALID_AUTH": "Invalid authorization",
+  "USER_ROLE": "You do not have the required role"
+}

@@ -1,0 +1,18 @@
+{
+  "ALL_FIELDS": "Veuillez fournir tous les détails",
+  "USER_EXIST": "L'utilisateur existe déjà avec cette adresse e-mail",
+  "USER_NOT_EXIST": "L'utilisateur n'existe pas avec cette adresse e-mail",
+  "USER_REGISTER": "L'utilisateur a été enregistré avec succès",
+  "USER_LOGIN": "L'utilisateur s'est connecté avec succès",
+  "USER_PASSWORD_INCORRECT": "Mot de passe incorrect",
+  "USERS_NOT_FOUND": "Aucun utilisateur trouvé",
+  "USER_NOT_FOUND": "Utilisateur non trouvé",
+  "USER_FETCH": "L'utilisateur a été trouvé avec succès",
+  "USER_UPDATED": "Les détails de l'utilisateur ont été mis à jour avec succès",
+  "USER_DELETE": "L'utilisateur a été supprimé avec succès",
+  "RESET_LINK": "Lien de réinitialisation du mot de passe envoyé avec succès",
+  "RESET_PASSWORD": "Mot de passe réinitialisé avec succès",
+  "INVALID_TOKEN": "Token invalide ou expiré. Veuillez réessayer",
+  "INVALID_AUTH": "Aucune authentification valide",
+  "USER_ROLE": "Vous n'avez pas les droits nécessaires"
+}
