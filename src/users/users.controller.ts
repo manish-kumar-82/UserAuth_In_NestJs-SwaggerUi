@@ -28,6 +28,16 @@ export class UsersController {
 
     // get all users  
     @ApiQuery({
+        name: 'page',
+        type: Number,
+        required: false
+    })
+    @ApiQuery({
+        name: 'limit',
+        type: Number,
+        required: false
+    })
+    @ApiQuery({
         name: 'search',
         type: String,
         required: false
@@ -36,9 +46,11 @@ export class UsersController {
     @Get('all-users')
     get(
         @I18nLang() lang: string,
-        @Query('search') search: string
+        @Query('page') page: number,
+        @Query('limit') limit: number,
+        @Query('search') search: string,
     ) {
-        return this.usersService.getAllUsers(lang, search);
+        return this.usersService.getAllUsers(lang, page, limit, search);
     }
     // get user by id
     @UseInterceptors(HideSensitiveInterceptor)

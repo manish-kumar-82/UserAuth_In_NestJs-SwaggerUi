@@ -46,7 +46,7 @@ export class UsersService {
             throw new BadRequestException(error.message)
         }
     }
-    
+
     // login  user
     async loginUser(userCreateDto: UserCreateDto, lang: string) {
         const { email, password } = userCreateDto;
@@ -69,7 +69,7 @@ export class UsersService {
     }
 
     // get all users
-    async getAllUsers(lang: string, search?: string) {
+    async getAllUsers(lang: string, page: number, limit: number, search?: string,) {
         try {
             // searching method
             const filter: any = {};
@@ -77,7 +77,9 @@ export class UsersService {
                 { name: { $regex: search, $options: 'i' } },
                 { email: { $regex: search, $options: 'i' } }
             ];
-            const users = await this.userModel.find(filter)
+            const users = await this.userModel.find(filter).skip((page - 1) * limit).limit(limit)
+
+            // pagination
 
 
 
