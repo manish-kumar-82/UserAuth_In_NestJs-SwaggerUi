@@ -6,14 +6,13 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UseIntercep
 import { RoleGuard } from 'src/auths/user_role.guard';
 import { HideSensitiveInterceptor } from './hide.interceptors';
 import { I18nLang } from 'nestjs-i18n';
-import { ApiBearerAuth, ApiBody, ApiHeader } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @ApiHeader({
     name: "accept-language",
-    required: false
 })
-
+@ApiTags("User Authentication")
 @Controller('users')
 export class UsersController {
     constructor(private usersService: UsersService) { }
