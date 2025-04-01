@@ -43,9 +43,10 @@ export class UsersService {
             // )
             return await this.translationsService.translate("USER_REGISTER", lang, { user });
         } catch (error) {
-            throw new ForbiddenException(error.message)
+            throw new BadRequestException(error.message)
         }
     }
+    
     // login  user
     async loginUser(userCreateDto: UserCreateDto, lang: string) {
         const { email, password } = userCreateDto;
@@ -63,21 +64,30 @@ export class UsersService {
             // return this.sendResponseService.sendResponse("USER_LOGIN", "en", { token });
             return await this.translationsService.translate("USER_LOGIN", lang, { token })
         } catch (error) {
-            throw new ForbiddenException(error.message);
+            throw new BadRequestException(error.message);
         }
     }
 
     // get all users
-    async getAllUsers(lang: string) {
+    async getAllUsers(lang: string, search?: string) {
         try {
-            const users = await this.userModel.find()
+            // searching method
+            const filter: any = {};
+            if (search) filter.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { email: { $regex: search, $options: 'i' } }
+            ];
+            const users = await this.userModel.find(filter)
+
+
+
             if (users.length === 0) throw new NotFoundException(await this.translationsService.translate("USERS_NOT_FOUND", lang));
             // return ({ message: "Users found successfully", users })
             // return this.sendResponseService.sendResponse("Users found successfully", { users });
             // return this.sendResponseService.sendResponse("USER_FETCH", "hi", { users })
             return await this.translationsService.translate("USER_FETCH", lang, { users })
         } catch (error) {
-            throw new ForbiddenException(error.message)
+            throw new BadRequestException(error.message)
         }
     }
 
@@ -98,20 +108,20 @@ export class UsersService {
     // update user
     async updateUser(id: string, updateUserDto: UpdateUserDto, lang: string) {
         try {
-            const userUpdate = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
+            const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
             // console.log(updateUserDto);
 
-            if (!userUpdate) throw new NotFoundException(await this.translationsService.translate("USER_NOT_FOUND", lang))
+            if (!user) throw new NotFoundException(await this.translationsService.translate("USER_NOT_FOUND", lang))
             // password update in hashed password
             if (updateUserDto.password) {
                 const hashedPassword = await bcrypt.hash(updateUserDto.password, 10)
-                userUpdate.password = hashedPassword
+                user.password = hashedPassword
             }
-            await userUpdate.save()
+            await user.save()
             // return ({ message: "User updated successfully", userUpdate })
             // return this.sendResponseService.sendResponse("User updated successfully", { userUpdate });
             // return this.sendResponseService.sendResponse("USER_UPDATED", "en", { userUpdate });
-            return await this.translationsService.translate("USER_UPDATED", lang, { userUpdate })
+            return await this.translationsService.translate("USER_UPDATED", lang, { user })
         } catch (error) {
             throw new ForbiddenException(error.message)
         }
@@ -119,12 +129,12 @@ export class UsersService {
     // delete user
     async deleteUser(id: string, lang: string) {
         try {
-            const userDelete = await this.userModel.findByIdAndDelete(id);
-            if (!userDelete) throw new NotFoundException(await this.translationsService.translate("USER_NOT_FOUND", lang));
+            const user = await this.userModel.findByIdAndDelete(id);
+            if (!user) throw new NotFoundException(await this.translationsService.translate("USER_NOT_FOUND", lang));
             // return ({ message: "User deleted successfully", userDelete });
             // return this.sendResponseService.sendResponse("User deleted successfully", { userDelete });
             // return this.sendResponseService.sendResponse("USER_DELETE", "en", { userDelete });
-            return await this.translationsService.translate("USER_DELETE", lang, { userDelete })
+            return await this.translationsService.translate("USER_DELETE", lang, { user })
         } catch (error) {
             throw new ForbiddenException(error.message)
         }

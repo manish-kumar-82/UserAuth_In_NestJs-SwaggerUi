@@ -2,11 +2,11 @@ import { AuthGuard } from 'src/auths/auth.guard';
 import { UserCreateDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { RoleGuard } from 'src/auths/user_role.guard';
 import { HideSensitiveInterceptor } from './hide.interceptors';
 import { I18nLang } from 'nestjs-i18n';
-import { ApiBearerAuth, ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiHeader, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @ApiHeader({
@@ -27,23 +27,29 @@ export class UsersController {
     }
 
     // get all users  
-    // @UseInterceptors(HideSensitiveInterceptor)
+    @ApiQuery({
+        name: 'search',
+        type: String,
+        required: false
+    })
     @UseGuards(AuthGuard, RoleGuard)
     @Get('all-users')
-    get(@I18nLang() lang: string) {
-        return this.usersService.getAllUsers(lang);
+    get(
+        @I18nLang() lang: string,
+        @Query('search') search: string
+    ) {
+        return this.usersService.getAllUsers(lang, search);
     }
-
     // get user by id
+    @UseInterceptors(HideSensitiveInterceptor)
     @UseGuards(AuthGuard)
     @Get("get-user/:id")
 
     getOneUser(@Param('id') id: string, @I18nLang() lang: string) {
         return this.usersService.getOneUser(id, lang)
     }
-
     // update user
-
+    // @UseInterceptors(HideSensitiveInterceptor)
     @UseGuards(AuthGuard)
     @Put('update-user/:id')
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @I18nLang() lang: string) {

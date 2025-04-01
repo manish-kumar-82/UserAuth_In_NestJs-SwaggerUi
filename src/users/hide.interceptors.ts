@@ -8,13 +8,12 @@ export class HideSensitiveInterceptor implements NestInterceptor {
         const req = cxt.getRequest();
 
         return next.handle().pipe(map((data) => {
-            return data.users.map((user) => {
-                return {
-                    name: user.name,
-                    email: user.email,
-                    role: user.role
-                }
-            })
+            return {
+                message: data.message,
+                name: data.args.user.name,
+                email: data.args.user.email,
+                role: data.args.user.role,
+            }
         }))
     }
-}
+}   
