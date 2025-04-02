@@ -2,7 +2,7 @@ import { AuthGuard } from 'src/auths/auth.guard';
 import { UserCreateDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, SetMetadata, UseGuards, UseInterceptors } from '@nestjs/common';
 import { RoleGuard } from 'src/auths/user_role.guard';
 import { HideSensitiveInterceptor } from './hide.interceptors';
 import { I18nLang } from 'nestjs-i18n';
@@ -42,6 +42,7 @@ export class UsersController {
         type: String,
         required: false
     })
+    @SetMetadata('roles', ['admin'])
     @UseGuards(AuthGuard, RoleGuard)
     @Get('all-users')
     get(

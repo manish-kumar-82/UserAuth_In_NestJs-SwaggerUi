@@ -7,12 +7,19 @@
   "USER_PASSWORD_INCORRECT": "Incorrect password",
   "USERS_NOT_FOUND": "No Users found",
   "USER_NOT_FOUND": "User not found",
-  "USER_FETCH": "User found successfully",   
+  "USER_FETCH": "User found successfully",
   "USER_UPDATED": "User details updated successfully",
   "USER_DELETE": "User deleted successfully",
   "RESET_LINK": "Reset password link sent successfully",
   "RESET_PASSWORD": "Password reset successfully",
   "INVALID_TOKEN": "Invalid token or expire token. Please try again",
   "INVALID_AUTH": "Invalid authorization",
-  "USER_ROLE": "You do not have the required role"
+  "USER_ROLE": "You do not have the required role",
+  "PRODUCT_NOT_FOUND": "Product not found",
+  "PRODUCT_ADDED": "Product added successfully",
+  "FETCH_PRODUCTS": "Products fetch successfully",
+  "PRODUCT_EXIST": "Product already exists",
+  "PRODUCT_FOUND":"Product found successfully",
+  "PRODUCT_UPDATE":"Product update successfully",
+  "PRODUCT_DELETE":"Product delete successfully"
 }

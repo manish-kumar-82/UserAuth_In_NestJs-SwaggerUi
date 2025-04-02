@@ -15,7 +15,7 @@ export class User extends Document {
     password: string;
 
     // role
-    @Prop({ default: 'user' })
+    @Prop({ required: true, enum: ["admin", "seller", "user"], default: 'user' })
     role: string;
 
     // token

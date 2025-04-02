@@ -1,3 +1,4 @@
+import { NotificationsGateway } from 'src/notifications/notifications.gateway';
 import { SendMailService } from '../mails/send_mail.service';
 import { JwtService } from '@nestjs/jwt';
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
@@ -16,6 +17,7 @@ export class UsersService {
         private jwtService: JwtService, private sendMailService: SendMailService,
         private sendResponseService: SendResponseService,
         private readonly translationsService: TranslationsService,
+        private readonly notificationsGateway: NotificationsGateway
     ) { }
 
     // register a new user
@@ -35,6 +37,10 @@ export class UsersService {
                 role
             })
             await user.save();
+            // send Notification to all users
+            this.notificationsGateway.sendNotification(user);
+
+
             // return ({ message: "User registered successfully", user })
             // return this.sendResponseService.sendResponse("User registered successfully", { user });
             // return this.sendResponseService.sendResponse("USER_REGISTER", "en", { user });
@@ -69,7 +75,7 @@ export class UsersService {
     }
 
     // get all users
-    async getAllUsers(lang: string, page: number, limit: number, search?: string,) {
+    async getAllUsers(lang: string, page: number, limit: number, search: string,) {
         try {
             // searching method
             const filter: any = {};
@@ -78,10 +84,6 @@ export class UsersService {
                 { email: { $regex: search, $options: 'i' } }
             ];
             const users = await this.userModel.find(filter).skip((page - 1) * limit).limit(limit)
-
-            // pagination
-
-
 
             if (users.length === 0) throw new NotFoundException(await this.translationsService.translate("USERS_NOT_FOUND", lang));
             // return ({ message: "Users found successfully", users })

@@ -7,7 +7,7 @@ import { TranslationsService } from 'src/i18n/i18n.service';
 export class AuthGuard implements CanActivate {
     constructor(
         private jwtService: JwtService,
-        private sendResponseService: SendResponseService,
+        // private sendResponseService: SendResponseService,
         private translationsService: TranslationsService
     ) { }
 

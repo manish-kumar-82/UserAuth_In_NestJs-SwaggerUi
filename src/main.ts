@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new HttpExceptionFilter());
   const config = new DocumentBuilder()
-    .setTitle("Users")
-    .setDescription("This API supports creating, reading, updating, and deleting users.")
+    .setTitle("Crud App")
+    .setDescription("This API supports creating, reading, updating, and deleting  users and products")
     .addBearerAuth()
     .setVersion("1.0.0")
     .build();

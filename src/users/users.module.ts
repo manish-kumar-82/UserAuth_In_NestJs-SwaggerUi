@@ -1,3 +1,4 @@
+import { NotificationsGateway } from 'src/notifications/notifications.gateway';
 import { User, UserSchema } from './schema/user.schema';
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
@@ -20,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
 
   ],
   controllers: [UsersController],
-  providers: [UsersService, SendResponseService, TranslationsService, SendMailService],
+  providers: [UsersService, SendResponseService, TranslationsService, SendMailService,NotificationsGateway],
   exports: []
 })
 export class UsersModule {
